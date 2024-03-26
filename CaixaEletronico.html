@@ -1,0 +1,166 @@
+<html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+
+<head>
+
+	<script>
+		var saldo = 100.5; // Float
+		var nome = prompt("Qual é o seu nome?");
+
+
+		function saudacao_com_nome() {
+			alert("Olá, " + nome + ", é um prazer ter você por aqui!");
+		}
+
+		saudacao_com_nome();
+
+		var extrato = [];
+
+		function inicio() {
+			var escolha = parseInt(prompt('Selecione uma opção: \n1.) Saldo \n2.) Extrato \n3.) Saque \n4. ) Depósito \n5 ) Transferência \n6 ) Sair'));
+			var pode_operar = false;
+
+			if (escolha != 6 && escolha != 4) {
+				var senha = prompt("Por favor, digite a sua senha.")
+				if (senha == 3589) { pode_operar = true }
+				else { alert("Senha incorreta, tente novamente.")
+			inicio() }
+			} else {
+				pode_operar = true;
+			}
+			if (pode_operar==true) {
+				switch (escolha) {
+					case 1:
+						ver_saldo();
+						break;
+					case 2:
+						ver_extrato();
+						break;
+					case 3:
+						fazer_saque();
+						break;
+					case 4:
+						fazer_deposito();
+						break;
+					case 5:
+						fazer_transferencia();
+						break;
+					case 6:
+						sair();
+						break;
+					default:
+					    erro();
+						break;
+				}
+			}
+		}
+
+		function ver_saldo() {
+				alert('Seu saldo atual é: ' + saldo.toFixed(2));
+				inicio();
+
+		}
+
+		function fazer_deposito() {
+			var deposito = parseFloat(prompt('Qual o valor para depósito?'));
+
+			if (isNaN(deposito) || deposito <= 0 || deposito === '') {
+				alert('Operação não autorizada. Por favor, informe um valor válido para depósito.');
+				fazer_deposito();
+			} else {
+				saldo += deposito;
+				extrato.push({ tipo: 'Depósito', valor: deposito });
+				ver_saldo();
+			}
+		}
+
+		function fazer_saque() {
+			var saque = parseFloat(prompt('Qual o valor para saque?'));
+
+			if (isNaN(saque) || saque <= 0 || saque > saldo || saque === '') {
+				alert("Operação não autorizada. Por favor, verifique o valor do saque.");
+				fazer_saque();
+			} else {
+				saldo -= saque;
+				extrato.push({ tipo: 'Saque', valor: saque });
+				ver_saldo();
+			}
+		}
+
+		function fazer_transferencia() {
+			var numeroConta = parseInt(prompt('Informe o número da conta para transferência:'));
+
+			if (isNaN(numeroConta)) {
+				alert('Número de conta inválido. Por favor, informe um número válido.');
+				fazer_transferencia();
+				return;
+			}
+
+			var valorTransferencia = parseFloat(prompt('Qual o valor para transferência?'));
+
+			if (isNaN(valorTransferencia) || valorTransferencia <= 0 || valorTransferencia > saldo || valorTransferencia === '') {
+				alert("Operação não autorizada.");
+				fazer_transferencia();
+				return;
+			}
+
+			saldo -= valorTransferencia;
+			extrato.push({ tipo: 'Transferência para conta ' + numeroConta, valor: valorTransferencia });
+			alert('Transferência de ' + valorTransferencia.toFixed(2) + ' realizada com sucesso para a conta ' + numeroConta + '.');
+			ver_saldo();
+		}
+
+		function sair() {
+			var confirma = confirm('Você deseja sair?');
+
+			if (confirma) {
+				alert(nome + ', foi um prazer ter você por aqui!');
+				window.close();
+			} else {
+				inicio();
+			}
+		}
+
+		function ver_extrato() {
+			var extratoTexto = "Extrato:\n";
+
+			for (var i = 0; i < extrato.length; i++) {
+				extratoTexto += extrato[i].tipo + ': ' + extrato[i].valor.toFixed(2) + '\n';
+			}
+
+			alert(extratoTexto);
+			inicio();
+		}
+
+		function erro() {
+			alert("Por favor, informe um número entre 1 e 6");
+			inicio();
+		}
+
+		inicio();
+	</script>
+
+	<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:xd_Signature msdt:dt="string"></mso:xd_Signature>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Editor msdt:dt="string">GABRIEL AZEVEDO</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Editor>
+<mso:Order msdt:dt="string">2400.00000000000</mso:Order>
+<mso:xd_ProgID msdt:dt="string"></mso:xd_ProgID>
+<mso:_ExtendedDescription msdt:dt="string"></mso:_ExtendedDescription>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Author msdt:dt="string">GABRIEL AZEVEDO</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Author>
+<mso:ComplianceAssetId msdt:dt="string"></mso:ComplianceAssetId>
+<mso:TemplateUrl msdt:dt="string"></mso:TemplateUrl>
+<mso:ReferenceId msdt:dt="string"></mso:ReferenceId>
+<mso:TriggerFlowInfo msdt:dt="string"></mso:TriggerFlowInfo>
+<mso:ContentTypeId msdt:dt="string">0x01010007715694252FA147AD75DD5D81F5DACE</mso:ContentTypeId>
+<mso:_SourceUrl msdt:dt="string"></mso:_SourceUrl>
+<mso:_SharedFileIndex msdt:dt="string"></mso:_SharedFileIndex>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+	<title></title>
+</head>
+
+<body>
+
+</body>
+
+</html>
